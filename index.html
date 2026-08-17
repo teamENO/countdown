@@ -10,13 +10,33 @@
       background:transparent !important;
       font-family:system-ui,sans-serif;
       overflow:hidden;
-      color:#000 !important; /* ← 文字色を強制的に黒にする */
+      color:#000 !important;
     }
+
     #time {
-      font-size:2rem;
-      color:#000 !important; /* ← ここも黒を強制 */
       text-align:center;
       padding:10px;
+      color:#000 !important;
+      font-weight:600;
+    }
+
+    /* PC向け（大きめ） */
+    #time {
+      font-size:2rem;
+    }
+
+    /* スマホ向け（自動で縮小） */
+    @media (max-width:480px) {
+      #time {
+        font-size:1.4rem;
+      }
+    }
+
+    /* さらに小さい画面向け */
+    @media (max-width:360px) {
+      #time {
+        font-size:1.2rem;
+      }
     }
   </style>
 </head>
