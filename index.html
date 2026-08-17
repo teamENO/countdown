@@ -2,61 +2,55 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>カウントダウン</title>
+  <title>Countdown</title>
   <style>
-    body {
-      font-family: system-ui, sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      background: #111;
-      color: #fff;
+    html, body {
+      margin:0;
+      padding:0;
+      background:transparent; /* 背景透明 */
+      font-family:system-ui,sans-serif;
+      overflow:hidden;
     }
-    .countdown {
-      text-align: center;
-    }
-    .time {
-      font-size: 3rem;
-      letter-spacing: 0.1em;
-    }
-    .label {
-      margin-top: 0.5rem;
-      font-size: 1rem;
-      color: #aaa;
+    #time {
+      font-size:2rem;
+      color:#fff;
+      text-align:center;
+      padding:10px;
     }
   </style>
 </head>
 <body>
-  <div class="countdown">
-    <div class="time" id="time">--d --h --m --s</div>
-    <div class="label">イベントまでの残り時間</div>
-  </div>
+  <div id="time">--</div>
 
   <script>
-    // カウントダウンの終了日時を設定（例: 2026-12-31 23:59:59）
-    const targetDate = new Date("2026-12-31T23:59:59");
+    // URLパラメータから date を取得
+    const params = new URLSearchParams(location.search);
+    const dateParam = params.get("date");
 
-    function updateCountdown() {
+    // パラメータが無ければデフォルト日時
+    const targetDate = dateParam
+      ? new Date(dateParam)
+      : new Date("2026-12-31T23:59:59");
+
+    function update(){
       const now = new Date();
       const diff = targetDate - now;
 
-      if (diff <= 0) {
-        document.getElementById("time").textContent = "終了しました";
+      if(diff <= 0){
+        time.textContent = "終了";
         return;
       }
 
-      const days = Math.floor(diff / (1000*60*60*24));
-      const hours = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
-      const minutes = Math.floor((diff % (1000*60*60)) / (1000*60));
-      const seconds = Math.floor((diff % (1000*60)) / 1000);
+      const d = Math.floor(diff/(1000*60*60*24));
+      const h = Math.floor(diff%(1000*60*60*24)/(1000*60*60));
+      const m = Math.floor(diff%(1000*60*60)/(1000*60));
+      const s = Math.floor(diff%(1000*60)/1000);
 
-      document.getElementById("time").textContent =
-        `${days}d ${hours}h ${minutes}m ${seconds}s`;
+      time.textContent = `${d}日 ${h}時間 ${m}分 ${s}秒`;
     }
 
-    updateCountdown();
-    setInterval(updateCountdown, 1000);
+    update();
+    setInterval(update,1000);
   </script>
 </body>
 </html>
