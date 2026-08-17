@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>カウントダウン</title>
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: #111;
+      color: #fff;
+    }
+    .countdown {
+      text-align: center;
+    }
+    .time {
+      font-size: 3rem;
+      letter-spacing: 0.1em;
+    }
+    .label {
+      margin-top: 0.5rem;
+      font-size: 1rem;
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+  <div class="countdown">
+    <div class="time" id="time">--d --h --m --s</div>
+    <div class="label">イベントまでの残り時間</div>
+  </div>
+
+  <script>
+    // カウントダウンの終了日時を設定（例: 2026-12-31 23:59:59）
+    const targetDate = new Date("2026-12-31T23:59:59");
+
+    function updateCountdown() {
+      const now = new Date();
+      const diff = targetDate - now;
+
+      if (diff <= 0) {
+        document.getElementById("time").textContent = "終了しました";
+        return;
+      }
+
+      const days = Math.floor(diff / (1000*60*60*24));
+      const hours = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
+      const minutes = Math.floor((diff % (1000*60*60)) / (1000*60));
+      const seconds = Math.floor((diff % (1000*60)) / 1000);
+
+      document.getElementById("time").textContent =
+        `${days}d ${hours}h ${minutes}m ${seconds}s`;
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+  </script>
+</body>
+</html>
