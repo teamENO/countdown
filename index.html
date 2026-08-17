@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" style="background:transparent !important;">
 <head>
   <meta charset="UTF-8">
   <title>Countdown</title>
@@ -7,27 +7,26 @@
     html, body {
       margin:0;
       padding:0;
-      background:transparent; /* 背景透明 */
+      background:transparent !important;
       font-family:system-ui,sans-serif;
       overflow:hidden;
+      color:#000 !important; /* ← 文字色を強制的に黒にする */
     }
     #time {
       font-size:2rem;
-      color:#000; /* ← 文字色ブラック */
+      color:#000 !important; /* ← ここも黒を強制 */
       text-align:center;
       padding:10px;
     }
   </style>
 </head>
-<body>
+<body style="background:transparent !important; color:#000 !important;">
   <div id="time">--</div>
 
   <script>
-    // URLパラメータから date を取得
     const params = new URLSearchParams(location.search);
     const dateParam = params.get("date");
 
-    // パラメータが無ければデフォルト日時
     const targetDate = dateParam
       ? new Date(dateParam)
       : new Date("2026-12-31T23:59:59");
